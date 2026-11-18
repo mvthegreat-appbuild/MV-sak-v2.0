@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07080d">
+<title>MV SAK</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:#07080d;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 12% 8%,rgba(70,50,255,.75),transparent 42%),radial-gradient(circle at 92% 28%,rgba(220,50,140,.6),transparent 40%),radial-gradient(circle at 8% 62%,rgba(20,150,230,.6),transparent 42%),radial-gradient(circle at 90% 92%,rgba(30,200,110,.5),transparent 38%),#07080d}
+.app{max-width:460px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 30px) 16px calc(env(safe-area-inset-bottom,0px) + 110px)}
+.hd{display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 18px;gap:8px}
+.hd b{font-size:24px;font-weight:600}.hd span{font-size:13px;color:#c9cde0}
+.gr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;margin-bottom:24px}
+.col{display:flex;flex-direction:column;gap:14px}
+.lb{font-size:12px;color:#c9cde0;margin:0 0 6px 12px}
+.sec{font-size:14px;font-weight:600;margin:4px 4px 12px}
+.g{position:relative;border-radius:30px;padding:5px;background:linear-gradient(150deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 45%,rgba(255,255,255,.2));-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 1px 2px rgba(255,255,255,.8),inset 0 -2px 4px rgba(255,255,255,.2),0 14px 26px -10px var(--c),0 3px 8px rgba(0,0,0,.45);min-width:0}
+.g::after{content:"";position:absolute;left:20px;right:20px;top:2px;height:8px;border-radius:8px;background:linear-gradient(rgba(255,255,255,.8),rgba(255,255,255,0));opacity:.7;pointer-events:none}
+.ln{position:relative;height:46px;border-radius:25px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--bg);box-shadow:inset 0 -10px 16px -6px var(--c),inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 1px rgba(0,0,0,.35);font-size:14px;font-weight:500;overflow:hidden;min-width:0}
+.ln input{all:unset;width:100%;font-size:17px;font-weight:500;color:#fff}
+.full{margin-bottom:8px}
+.nm input{all:unset;flex:1;font-size:16px;font-weight:500;text-transform:uppercase;min-width:0}
+.go{all:unset;cursor:pointer;padding:6px;margin:-6px}
+.st{font-size:12px;color:#c9cde0;margin:0 8px 16px;min-height:16px;line-height:1.35}.st.err{color:#ff8a94}
+.rc .ln{gap:10px}
+.k{font-size:14px;font-weight:600;min-width:46px}
+.big{flex:1;font-size:20px;font-weight:600;white-space:nowrap}
+.bd{font-size:12px;font-weight:600;padding:5px 10px;border-radius:13px;background:#35e060;color:#04260f;white-space:nowrap}
+.bd.no{background:#ff6b78;color:#3a0309}.bd.up{background:#7fd0ff;color:#04202e}
+.vd{margin-bottom:16px}.vd .ln{justify-content:center;font-size:15px}
+svg{display:block}
+.tb{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);width:calc(100% - 32px);max-width:428px;z-index:5}
+.tb .ln{padding:4px;gap:4px}
+.tn{all:unset;flex:1;text-align:center;height:38px;line-height:38px;border-radius:19px;font-size:14px;font-weight:600;color:#c9cde0;cursor:pointer}
+.tn.on{color:#fff;background:linear-gradient(rgba(255,255,255,.24),rgba(255,255,255,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 14px rgba(138,107,255,.6)}
+.ch{display:flex;gap:8px;margin:0 2px 16px;flex-wrap:wrap}
+.cp{all:unset;cursor:pointer;font-size:13px;font-weight:600;padding:7px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#c9cde0}
+.cp.on{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.6)}
+.emp{color:#c9cde0;font-size:14px;line-height:1.5;margin:18px 6px}
+.it{margin-bottom:16px}
+.it .ln{height:auto;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:13px 14px;gap:10px;border-radius:22px}
+.it.g{border-radius:27px}
+.r1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.r1 b{font-size:17px;font-weight:600}
+.sm{font-size:12px;color:#c9cde0}
+.r3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.r3>div{background:rgba(255,255,255,.07);border-radius:12px;padding:8px 6px;text-align:center}
+.r3 i{display:block;font-style:normal;font-size:11px;opacity:.8}
+.r3 b{display:block;font-size:15px;margin:2px 0}
+.r3 em{display:block;font-style:normal;font-size:11px;font-weight:600}
+.ok{color:#6dff95}.bad{color:#ff8a94}
+.ac{display:flex;gap:8px}
+.b{all:unset;cursor:pointer;flex:1;text-align:center;font-size:13px;font-weight:600;padding:9px 0;border-radius:16px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1)}
+.b.kp{background:#35e060;color:#04260f;border-color:transparent}.b.dl{color:#ff8a94}
+.pp{background:#ffb02e;color:#2e1c00}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hd"><b>MV SAK</b><span>(Stock Analysis Kit)</span></div>
+
+  <div id="v1">
+    <div class="g full" style="--bg:linear-gradient(#2c2f3c,#0d0e14);--c:#a79bff">
+      <div class="ln nm">
+        <input id="nm" value="HINDALCO" aria-label="Stock name" autocapitalize="characters">
+        <button class="go" id="go" aria-label="Fetch data"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      </div>
+    </div>
+    <div class="st" id="st">Type a stock name or symbol, then tap search.</div>
+
+    <div class="gr">
+      <div><div class="lb">CMP</div><div class="g" style="--c:#4ddc7a"><div class="ln" style="--bg:linear-gradient(#17382a,#06120b);--c:#4ddc7a"><input id="cmp" inputmode="decimal" value="886.65" aria-label="CMP"></div></div></div>
+      <div><div class="lb">EPS</div><div class="g" style="--c:#ff9a2e"><div class="ln" style="--bg:linear-gradient(#5a3410,#150b03);--c:#ff9a2e"><input id="eps" inputmode="decimal" value="73.71" aria-label="EPS"></div></div></div>
+      <div><div class="lb">Assumed growth %</div><div class="g" style="--c:#ff5a3c"><div class="ln" style="--bg:linear-gradient(#4a1f14,#130708);--c:#ff5a3c"><input id="gr" inputmode="decimal" value="38" aria-label="Assumed growth percent"></div></div></div>
+      <div><div class="lb">Expected PE</div><div class="g" style="--c:#8a6bff"><div class="ln" style="--bg:linear-gradient(#35248a,#0e0a2b);--c:#8a6bff"><input id="pe" inputmode="decimal" value="10.7" aria-label="Expected PE"></div></div></div>
+    </div>
+    <div class="st" id="gx" style="margin-top:-12px"></div>
+
+    <div class="sec">Result</div>
+    <div class="g vd" id="vd" style="--c:#4ddc7a"><div class="ln" id="vl" style="--bg:linear-gradient(#17382a,#06120b);--c:#4ddc7a"><span id="vt">Discount at all 3 levels</span></div></div>
+
+    <div class="col">
+      <div class="g rc" style="--c:#4ddc7a"><div class="ln" style="--bg:linear-gradient(#17382a,#06120b);--c:#4ddc7a"><span class="k">X/2</span><span class="big" id="l2">0</span><span class="bd" id="d2">Discount</span></div></div>
+      <div class="g rc" style="--c:#27c4ff"><div class="ln" style="--bg:linear-gradient(#103a45,#05121a);--c:#27c4ff"><span class="k">X/3</span><span class="big" id="l3">0</span><span class="bd" id="d3">Discount</span></div></div>
+      <div class="g rc" style="--c:#8a6bff"><div class="ln" style="--bg:linear-gradient(#2a1650,#080c1a 60%,#14385a);--c:#8a6bff"><span class="k">X/4</span><span class="big" id="l4">0</span><span class="bd" id="d4">Discount</span></div></div>
+      <div class="g rc" style="--c:#ff5fb0"><div class="ln" style="--bg:linear-gradient(#7a2a5c,#230a1b);--c:#ff5fb0"><span class="k">Target</span><span class="big" id="tg">0</span><span class="bd up" id="dt"></span></div></div>
+    </div>
+    <div class="st" id="sub" style="margin-top:12px"></div>
+  </div>
+
+  <div id="v2" hidden>
+    <div class="sec" style="font-size:18px">Analysed Stocks</div>
+    <div class="ch" id="ch"></div>
+    <div id="ls"></div>
+  </div>
+</div>
+
+<nav class="g tb" style="--c:#8a6bff">
+  <div class="ln" style="--bg:linear-gradient(#1b1d2b,#07080d)">
+    <button class="tn on" id="t1">Analyse</button>
+    <button class="tn" id="t2">Analysed Stocks</button>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var ids=['nm','cmp','eps','gr','pe'],LK='mvsak_list',cur=null,curName='',last=null,filter='all';
+  function $(id){return document.getElementById(id)}
+  function v(id){return parseFloat($(id).value)||0}
+  function f(n){return Math.round(n).toLocaleString('en-IN')}
+  function num(s){var m=String(s==null?'':s).replace(/,/g,'').match(/-?\d+(\.\d+)?/);return m?parseFloat(m[0]):NaN}
+  function r2(x){return String(Math.round(x*100)/100)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function setSt(t,err){var e=$('st');e.textContent=t;e.className='st'+(err?' err':'')}
+  function save(){try{var o={};ids.forEach(function(i){o[i]=$(i).value});localStorage.setItem('mvsak',JSON.stringify(o))}catch(e){}}
+  function load(){try{var o=JSON.parse(localStorage.getItem('mvsak')||'null');if(o)ids.forEach(function(i){if(o[i]!==undefined)$(i).value=o[i]})}catch(e){}}
+  function loadList(){try{return JSON.parse(localStorage.getItem(LK)||'[]')||[]}catch(e){return[]}}
+  function saveList(a){try{localStorage.setItem(LK,JSON.stringify(a))}catch(e){}}
+
+  /* ---- records ---- */
+  function updCount(){$('t2').textContent='Analysed Stocks ('+loadList().length+')'}
+  function upsert(fresh){
+    if(!cur||!last)return;
+    var a=loadList(),i=-1;
+    for(var j=0;j<a.length;j++)if(a[j].sym===cur){i=j;break}
+    var o={sym:cur,name:curName||cur,ts:(fresh||i<0)?Date.now():a[i].ts,status:i<0?'pending':a[i].status,cmp:last.cmp,eps:last.eps,g:last.g,pe:last.pe,tg:last.tg,lv:last.lv,dc:last.dc,n:last.n};
+    if(i<0)a.unshift(o);else a[i]=o;
+    saveList(a);updCount();
+  }
+  function pct(d){return d>0?'<em class="ok">Disc '+d.toFixed(1)+'%</em>':'<em class="bad">Prem '+Math.abs(d).toFixed(1)+'%</em>'}
+  function renderList(){
+    var a=loadList(),k=a.filter(function(x){return x.status==='keep'}).length,p=a.length-k;
+    var tabs=[['all','All ('+a.length+')'],['pending','Pending ('+p+')'],['keep','Kept ('+k+')']];
+    $('ch').innerHTML=tabs.map(function(t){return '<button class="cp'+(filter===t[0]?' on':'')+'" data-f="'+t[0]+'">'+t[1]+'</button>'}).join('');
+    var show=a.filter(function(x){return filter==='all'||(filter==='keep'?x.status==='keep':x.status!=='keep')});
+    if(!show.length){$('ls').innerHTML='<div class="emp">'+(a.length?'No stocks in this filter.':'No stocks yet. Search a stock in the Analyse tab and it is saved here automatically. Then choose Keep or Remove.')+'</div>';return}
+    $('ls').innerHTML=show.map(function(x){
+      var kept=x.status==='keep',c=kept?'#4ddc7a':'#ffb02e';
+      var bg=kept?'linear-gradient(#17382a,#06120b)':'linear-gradient(#3a2a10,#120b03)';
+      var dt=new Date(x.ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+      return '<div class="g it" style="--c:'+c+'"><div class="ln" style="--bg:'+bg+';--c:'+c+'">'+
+      '<div class="r1"><b>'+esc(x.name)+'</b><span class="bd'+(kept?'':' pp')+'">'+(kept?'Kept':'Pending')+'</span></div>'+
+      '<div class="sm">'+esc(x.sym)+' \u00B7 '+dt+' \u00B7 CMP '+r2(x.cmp)+' \u00B7 Target '+f(x.tg)+'</div>'+
+      '<div class="r3">'+[2,3,4].map(function(m,i){return '<div><i>X/'+m+'</i><b>'+f(x.lv[i])+'</b>'+pct(x.dc[i])+'</div>'}).join('')+'</div>'+
+      '<div class="ac"><button class="b" data-a="open" data-s="'+esc(x.sym)+'">Open</button>'+
+      '<button class="b'+(kept?'':' kp')+'" data-a="keep" data-s="'+esc(x.sym)+'">'+(kept?'Undo keep':'Keep')+'</button>'+
+      '<button class="b dl" data-a="del" data-s="'+esc(x.sym)+'">Remove</button></div></div></div>';
+    }).join('');
+  }
+  function show(t){
+    $('v1').hidden=t!==1;$('v2').hidden=t!==2;
+    $('t1').className='tn'+(t===1?' on':'');$('t2').className='tn'+(t===2?' on':'');
+    if(t===2)renderList();
+    window.scrollTo(0,0);
+  }
+  $('t1').addEventListener('click',function(){show(1)});
+  $('t2').addEventListener('click',function(){show(2)});
+  $('ls').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var a=loadList(),s=b.getAttribute('data-s'),i=-1;
+    for(var j=0;j<a.length;j++)if(a[j].sym===s){i=j;break}
+    if(i<0)return;
+    var act=b.getAttribute('data-a');
+    if(act==='keep'){a[i].status=a[i].status==='keep'?'pending':'keep';saveList(a);renderList()}
+    else if(act==='del'){if(confirm('Remove '+a[i].name+' from Analysed Stocks?')){a.splice(i,1);saveList(a);if(cur===s)cur=null;updCount();renderList()}}
+    else if(act==='open'){
+      var x=a[i];
+      $('nm').value=x.sym;$('cmp').value=r2(x.cmp);$('eps').value=r2(x.eps);$('gr').value=r2(x.g);$('pe').value=r2(x.pe);
+      cur=x.sym;curName=x.name;$('gx').textContent='';
+      calc();show(1);
+      setSt(x.name+' \u00B7 saved analysis from '+new Date(x.ts).toLocaleDateString('en-IN')+'. Tap search to refresh.');
+    }
+  });
+  $('ch').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.getAttribute('data-f');renderList()});
+
+  /* ---- calculation ---- */
+  function calc(){
+    var c=v('cmp'),e=v('eps'),g=v('gr'),p=v('pe');
+    var e5=e*Math.pow(1+g/100,5),t=e5*p,n=0,lv=[],dc=[];
+    $('sub').textContent='EPS in 5 yrs '+e5.toFixed(2)+' x PE '+p;
+    $('tg').textContent=f(t);
+    [2,3,4].forEach(function(k){
+      var l=t/k,d=l>0?(l-c)/l*100:0,b=$('d'+k);
+      lv.push(l);dc.push(d);
+      $('l'+k).textContent=f(l);
+      if(d>0){n++;b.textContent='Discount '+d.toFixed(2)+'%';b.className='bd'}
+      else{b.textContent='Premium '+Math.abs(d).toFixed(2)+'%';b.className='bd no'}
+    });
+    var tb=$('dt'),up=c>0?(t/c-1)*100:0;
+    if(c>0){if(up>=0){tb.textContent='Upside '+Math.round(up)+'%';tb.className='bd up'}else{tb.textContent='Downside '+Math.round(Math.abs(up))+'%';tb.className='bd no'}}else{tb.textContent=''}
+    $('vt').textContent=n==3?'Discount at all 3 levels':n==0?'No discount at any level':'Discount at '+n+' of 3 levels';
+    var col=n==3?'#4ddc7a':n==0?'#ff5a6a':'#ffb02e';
+    $('vd').style.setProperty('--c',col);$('vl').style.setProperty('--c',col);
+    last={cmp:c,eps:e,g:g,pe:p,tg:t,lv:lv,dc:dc,n:n};
+    if(cur)upsert(false);
+    save();
+  }
+
+  /* ---- fetching ---- */
+  var UA={'User-Agent':'Mozilla/5.0 (Linux; Android 13; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36','Accept':'text/html,application/json,*/*'};
+  function get(url,json){return fetch(url,{headers:UA}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return json?r.json():r.text()})}
+  function findSym(q){
+    return get('https://www.screener.in/api/company/search/?q='+encodeURIComponent(q)+'&v=3&fts=1',true).then(function(a){
+      var m=a&&a.length&&a[0].url&&a[0].url.match(/\/company\/([^\/]+)/);
+      if(!m)throw new Error('none');return decodeURIComponent(m[1]);
+    }).catch(function(){return q.toUpperCase().replace(/\s+/g,'')});
+  }
+  function parsePage(html){
+    var doc=new DOMParser().parseFromString(html,'text/html'),o={g:[]},h1=doc.querySelector('h1');
+    o.name=h1?h1.textContent.replace(/\s+/g,' ').trim():'';
+    doc.querySelectorAll('li').forEach(function(li){
+      var t=li.textContent.replace(/\s+/g,' ').trim(),m;
+      if((m=t.match(/^Current Price\s*\u20B9?\s*([\d.,]+)/)))o.price=num(m[1]);
+      if((m=t.match(/^Stock P\/E\s*([\d.,]+)/)))o.pe=num(m[1]);
+    });
+    var pl=doc.getElementById('profit-loss')||doc;
+    pl.querySelectorAll('tr').forEach(function(tr){
+      var c=tr.querySelectorAll('td,th');if(!c.length)return;
+      if(/^EPS in Rs/i.test(c[0].textContent.replace(/\s+/g,' ').trim())){
+        for(var i=c.length-1;i>0;i--){var x=num(c[i].textContent);if(!isNaN(x)){o.eps=x;break}}
+      }
+    });
+    function growth(root){
+      var out=[];root.querySelectorAll('table').forEach(function(t){
+        if(out.length||!/Compounded Profit Growth/.test(t.textContent))return;
+        t.querySelectorAll('tr').forEach(function(tr){
+          var c=tr.querySelectorAll('td');
+          if(c.length>=2){var x=num(c[1].textContent);if(!isNaN(x))out.push([c[0].textContent.replace(':','').trim(),x])}
+        });
+      });return out;
+    }
+    o.g=growth(pl);if(!o.g.length)o.g=growth(doc);
+    return o;
+  }
+  function yahooPrice(sym){
+    var ys=encodeURIComponent(sym)+(/^\d+$/.test(sym)?'.BO':'.NS');
+    return get('https://query1.finance.yahoo.com/v8/finance/chart/'+ys+'?interval=1d&range=1d',true)
+      .then(function(j){return j.chart.result[0].meta.regularMarketPrice}).catch(function(){return NaN});
+  }
+  function fetchAll(){
+    var q=$('nm').value.trim();if(!q)return;
+    setSt('Fetching '+q.toUpperCase()+' ...');
+    var sym;
+    return findSym(q).then(function(s){sym=s;return get('https://www.screener.in/company/'+encodeURIComponent(sym)+'/consolidated/')})
+    .then(function(html){
+      var d=parsePage(html);
+      if(isNaN(d.price)&&isNaN(d.pe))throw new Error('not found');
+      return yahooPrice(sym).then(function(p){d.cmp=isNaN(p)?d.price:p;return d});
+    }).then(function(d){
+      if(isNaN(d.eps)&&d.price&&d.pe)d.eps=d.price/d.pe;
+      if(!isNaN(d.cmp))$('cmp').value=r2(d.cmp);
+      if(!isNaN(d.eps))$('eps').value=r2(d.eps);
+      if(!isNaN(d.pe))$('pe').value=r2(d.pe);
+      var gx=$('gx');
+      if(d.g.length){
+        var avg=d.g.reduce(function(a,b){return a+b[1]},0)/d.g.length;
+        $('gr').value=r2(avg);
+        gx.textContent='Profit growth: '+d.g.map(function(x){return x[0].replace(' Years','Y')+' '+x[1]+'%'}).join(' \u00B7 ')+' \u2192 average '+r2(avg)+'%';
+      }else{gx.textContent='Growth not found - enter it manually.'}
+      cur=sym;curName=d.name||sym;
+      calc();upsert(true);
+      setSt((d.name||q.toUpperCase())+' \u00B7 updated '+new Date().toLocaleTimeString()+' \u00B7 saved in Analysed Stocks');
+    }).catch(function(){
+      setSt("Couldn't fetch data (check internet or the stock name). You can still type the values.",true);
+    });
+  }
+  $('go').addEventListener('click',fetchAll);
+  $('nm').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('nm').blur();fetchAll()}});
+  $('nm').addEventListener('input',function(){cur=null});
+  var had=false;try{had=!!localStorage.getItem('mvsak')}catch(e){}
+  load();
+  ids.forEach(function(i){if(i!=='nm')$(i).addEventListener('input',calc)});
+  calc();updCount();
+  if(had)fetchAll();
+})();
+</script>
+</body>
+</html>
