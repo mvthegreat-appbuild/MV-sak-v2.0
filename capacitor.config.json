@@ -2,5 +2,6 @@
   "appId": "com.mv.sak",
   "appName": "MV SAK",
   "webDir": "www",
-  "android": { "backgroundColor": "#07080d" }
+  "android": { "backgroundColor": "#07080d" },
+  "plugins": { "CapacitorHttp": { "enabled": true } }
 }
